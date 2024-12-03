@@ -19,20 +19,20 @@ const (
 	Unknown
 )
 
-type Record []int
+type Report []int
 
-func (r Record) Omit(i int) Record {
-	cpy := make(Record, r.Size())
+func (r Report) Omit(i int) Report {
+	cpy := make(Report, r.Size())
 	copy(cpy, r)
 
 	return append(cpy[:i], cpy[i+1:]...)
 }
 
-func (r Record) Size() int {
+func (r Report) Size() int {
 	return len(r)
 }
 
-func (r Record) Safe() bool {
+func (r Report) Safe() bool {
 	direction := Unknown
 
 	for i, num := range r {
@@ -69,13 +69,13 @@ func (r Record) Safe() bool {
 	return true
 }
 
-func getReports(path string) []Record {
+func getReports(path string) []Report {
 	file := files.OpenRelative(path)
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
 
-	var reports []Record
+	var reports []Report
 
 	for scanner.Scan() {
 		line := scanner.Text()
